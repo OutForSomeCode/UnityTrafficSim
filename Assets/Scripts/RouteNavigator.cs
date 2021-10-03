@@ -22,7 +22,7 @@ public class RouteNavigator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controller.reachedDestination)
+        if (controller.reachedDestination && current.nextNode != null)
         {
             current = current.nextNode;
             controller.SetDestination(current.GetNodePosition());

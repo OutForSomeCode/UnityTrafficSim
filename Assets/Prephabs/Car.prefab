@@ -243,11 +243,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frontWheels:
-  - {fileID: 1457572584800441077}
-  - {fileID: 1084212947419854663}
+  - {fileID: 4525002602561389994}
+  - {fileID: 1802031542464333598}
   rearWheels:
-  - {fileID: 3660626399446707312}
-  - {fileID: 3331300688463257874}
+  - {fileID: 7953468568596129642}
+  - {fileID: 6547908716852824151}
+  throttleInput: 1
+  horsePower: 50
+  steeringAngle: 35
+  reachedDestination: 0
 --- !u!114 &1127610711391442522
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dbcebe48e88b104382aa3da9281a4e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  current: {fileID: 0}
 --- !u!1 &4525002602561389994
 GameObject:
   m_ObjectHideFlags: 0
