@@ -6,48 +6,38 @@ public class TrailerController : MonoBehaviour
 {
     public GameObject pullingVehicle;
 
-    private bool isReversing;
-
-    void Update()
+    public void Start()
     {
-        isReversing = transform.InverseTransformDirection(GetComponent<Rigidbody>().velocity).z < 0f;
+        Rigidbody trailer = GetComponent<Rigidbody>();
 
-        TrailerBrakes(pullingVehicle.GetComponent<VehicleController>().throttleInput);
+        float mass = trailer.mass;
+
+        trailer.drag = 0.05f + (mass - 1000) / 200000;
+        trailer.angularDrag = trailer.drag;
     }
 
     //helping the trailer to get going and braking
-    private void TrailerBrakes(float direction)
+    private void FixedUpdate()
     {
         foreach(WheelCollider wheel in GetComponentsInChildren<WheelCollider>())
         {
-            // is pulling vehicle going forward?
-            if (direction > 0)
+            float direction = pullingVehicle.GetComponent<VehicleController>().currentSpeed;
+
+            if (direction > 0 && direction < 1)
             {
-                // is trailer reversing?
-                if (isReversing)
-                {
-                    wheel.motorTorque = 0f;
-                }
-                else
-                {
-                    wheel.motorTorque = 10f;
-                    wheel.brakeTorque = 0f;
-                }
+                wheel.motorTorque = 10;
+                wheel.brakeTorque = 0;
             }
-            // is pulling vehicle going backwards
-            else if (direction < 0)
+            else if (direction > -1 && direction < 0)
             {
-                // is trailer reversing?
-                if (isReversing)
-                {
-                    wheel.motorTorque = -10;
-                    wheel.brakeTorque = 0f;
-                }
-                else
-                    wheel.motorTorque = 0;
+                wheel.motorTorque = -10;
+                wheel.brakeTorque = 0;
             }
             else
-                wheel.brakeTorque = 10;
+            {
+                wheel.motorTorque = 0;
+                wheel.brakeTorque = 0;
+            }
         }
     }
 }

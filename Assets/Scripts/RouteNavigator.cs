@@ -16,7 +16,7 @@ public class RouteNavigator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller.SetDestination(current.GetNodePosition());
+        controller.SetDestination(current.GetNodePosition(), current.GetAllowedSpeed(), current.GetTurnAngle());
     }
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public class RouteNavigator : MonoBehaviour
         if (controller.reachedDestination && current.nextNode != null)
         {
             current = current.nextNode;
-            controller.SetDestination(current.GetNodePosition());
+            controller.SetDestination(current.GetNodePosition(), current.GetAllowedSpeed(), current.GetTurnAngle());
         }
     }
 }

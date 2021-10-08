@@ -8,6 +8,7 @@ public class RouteManagerWindow : EditorWindow
 {
     public string[] routeNames;
 
+    private float maxSpeed;
     private List<Transform> routes;
     private Transform nodeRoot;
     private int routeCount;
@@ -44,6 +45,8 @@ public class RouteManagerWindow : EditorWindow
             index = EditorGUILayout.Popup(index, routeNames);
             nodeRoot = routes[index];
         }
+
+         maxSpeed = EditorGUILayout.Slider("Max speed", 50, 0, 130);
 
         if (routes.Count == 0)
         {
@@ -85,6 +88,8 @@ public class RouteManagerWindow : EditorWindow
         nodeObj.transform.SetParent(nodeRoot, false);
 
         Node node = nodeObj.GetComponent<Node>();
+        node.allowedSpeed = maxSpeed;
+
         if (nodeRoot.childCount > 1)
         {
             node.previousNode = nodeRoot.GetChild(nodeRoot.childCount - 2).GetComponent<Node>();
